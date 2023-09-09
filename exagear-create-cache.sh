@@ -32,11 +32,11 @@ done
 
 echo 'Starting to download the Ubuntu rootfs...'
 
-mkdir -p $SELECTED_OS
-debootstrap --arch=i386 --variant=minbase $SELECTED_OS $SELECTED_OS http://mirror.yandex.ru/ubuntu
+sudo mkdir -p $SELECTED_OS
+sudo debootstrap --arch=i386 --variant=minbase $SELECTED_OS $SELECTED_OS http://mirror.yandex.ru/ubuntu
 
-cp chroot.sh $SELECTED_OS
-touch vars.txt
+sudo cp chroot.sh $SELECTED_OS
+sudo touch vars.txt
 if [ $SELECTED_OS == "focal" ]
 then
 	printf 'focal' > vars.txt
@@ -44,27 +44,27 @@ elif [ $SELECTED_OS == "xenial" ]
 then
 	printf 'xenial' > vars.txt
 fi
-cp vars.txt $SELECTED_OS
-cd $SELECTED_OS
-mount proc -t proc ./proc
-mount sys -t sysfs ./sys
-mount --bind /dev ./dev
-mount --bind /dev/pts ./dev/pts
-chroot ./ /usr/bin/env -i HOME=/root TERM="$TERM" /bin/bash -l "chroot.sh"
+sudo cp vars.txt $SELECTED_OS
+sudo cd $SELECTED_OS
+sudo mount proc -t proc ./proc
+sudo mount sys -t sysfs ./sys
+sudo mount --bind /dev ./dev
+sudo mount --bind /dev/pts ./dev/pts
+sudo chroot ./ /usr/bin/env -i HOME=/root TERM="$TERM" /bin/bash -l "chroot.sh"
 
 sudo umount dev/pts dev proc sys
 
 cd ..
 
-cp -r cache-fixes/. $SELECTED_OS
-cp -r libs/. $SELECTED_OS
+sudo cp -r cache-fixes/. $SELECTED_OS
+sudo cp -r libs/. $SELECTED_OS
 
-cd $SELECTED_OS
-zip --symlinks -r main.30.com.eltechs.ed.obb .
-cp main.30.com.eltechs.ed.obb ../obb-cache
+sudo cd $SELECTED_OS
+sudo zip --symlinks -r main.30.com.eltechs.ed.obb .
+sudo cp main.30.com.eltechs.ed.obb ../obb-cache
 
 cd ..
-rm -r $SELECTED_OS
+sudo rm -r $SELECTED_OS
 
 clear
 
