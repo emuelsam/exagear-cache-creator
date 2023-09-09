@@ -4,11 +4,11 @@ export SELECTED_OS=""
 export SELECTED_OS_NUM=""
 
 clear
-echo 'ExaGear cache creator by Grima04, based on instructions from Zhymabek Roman'
+echo 'ExaGear cache creator by Grima04, based on instructions from Zhymabek Roman, modified by mtechlibya'
 
 echo ''
 echo 'Please select the Ubuntu version that you want to use for your cache:'
-osOptions=("Ubuntu 16.04" "Ubuntu 18.04")
+osOptions=("Ubuntu 16.04" "Ubuntu 20.04")
 select OPT in "${osOptions[@]}"
 do
 	case $OPT in
@@ -19,11 +19,11 @@ do
 			export SELECTED_OS_NUM="16.04"
 			break
 			;;
-		"Ubuntu 18.04")
+		"Ubuntu 20.04")
 			clear
 			echo "Using $OPT to create the cache..."
-			export SELECTED_OS="bionic"
-			export SELECTED_OS_NUM="18.04"
+			export SELECTED_OS="focal"
+			export SELECTED_OS_NUM="20.04"
 			break
 			;;
 		*)      echo "Invalid option $REPLY";;
@@ -37,9 +37,9 @@ debootstrap --arch=i386 --variant=minbase $SELECTED_OS $SELECTED_OS http://mirro
 
 cp chroot.sh $SELECTED_OS
 touch vars.txt
-if [ $SELECTED_OS == "bionic" ]
+if [ $SELECTED_OS == "focal" ]
 then
-	printf 'bionic' > vars.txt
+	printf 'focal' > vars.txt
 elif [ $SELECTED_OS == "xenial" ]
 then
 	printf 'xenial' > vars.txt
