@@ -29,11 +29,8 @@ do
 		*)      echo "Invalid option $REPLY";;
 	esac
 done
-echo 'installing debootstrap proot wget'
-sudo apt install debootstrap proot wget
 
 echo 'Starting to download the Ubuntu rootfs...'
-
 mkdir -p $SELECTED_OS
 sudo debootstrap --arch=i386 --variant=minbase $SELECTED_OS $SELECTED_OS http://mirror.yandex.ru/ubuntu
 
